@@ -26,7 +26,25 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            'password'          => 'hashed',
+            'status'            => 'boolean',
         ];
+    }
+
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+        'role',
+        'satus',
+    ];
+
+    public function registrations() {
+        return $this->hasMany(Registration::class);
+    }
+
+    public function isAdmin(): booll
+    {
+        return $this->role ==='admin';
     }
 }
