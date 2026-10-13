@@ -26,20 +26,10 @@ class CategoryRequest extends FormRequest
                 'max:100',
 
             Rule::unique('categories', 'name')->ignore(category),
-            
+
             ],
         ];
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, ValidationRule|array<mixed>|string>
-     */
-    public function rules(): array
-    {
-        return [
-            //
-        ];
-    }
+   
 }
