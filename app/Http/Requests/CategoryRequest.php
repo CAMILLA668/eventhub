@@ -19,7 +19,7 @@ class CategoryRequest extends FormRequest
     public function rules(): array
     {
         $category = this->route('category');
-            return['name' => [
+            return ['name' => [
                 'required',
                 'string',
                 'min:3',
