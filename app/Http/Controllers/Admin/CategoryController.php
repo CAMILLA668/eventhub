@@ -3,63 +3,83 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\CategoryRequest;
+use App\Models\Category;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class CategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(): view
     {
-        //
+        $categories = Category::withCount('events')
+           ->orderBy('name')
+           ->get();
+
+        return view(
+            'admin.categories.index',
+            compact('categories')
+        );
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function create(): view
     {
-        //
+        return view('admin.categories.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
+    public function store(
+        CategoryRequest $request
+    ): RedirectResponse {
+        Category::create(
+            $request->validated()
+        );
+
+        return redirect()
+          ->route('admin.categories.index')
+          ->with(
+            'success',
+            'Categoria criada com sucessso.'
+          );
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function edit(Category $category): View
     {
-        //
+        return view(
+            'admin.categories.edit',
+            compact('category')
+        );
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function update(CategoryRequest $request, Category $category): RedirectResponse
     {
-        //
+        $category->update(
+            $request->validated()
+        );
+
+        return redirect()
+          ->route('admin.categories.index')
+          ->with(
+              'success',
+              'Categoria atualizada com sucesso.'
+          );
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function destroy(Category $category): RedirectResponse
     {
-        //
-    }
+        if($category->events()->exists()) {
+            return back()->with(
+                'error',
+                'Não é possível excluir uma categoria que possui eventos.'
+            );
+        }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        $category->delete();
+
+        return redirect()
+           ->route('admin.categories.index')
+           ->with(
+              'success',
+              'Categoria excluída com sucesso.'
+           );
     }
 }

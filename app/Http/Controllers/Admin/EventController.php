@@ -10,7 +10,7 @@ use App\Models\Event;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
-class EventCOntroller extends Controller
+class EventController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -142,7 +142,7 @@ class EventCOntroller extends Controller
 
     public  function participants(Event $event): View
     {
-        event->load(['category', 'registrations'
+        $event->load(['category', 'registrations'
                => fn($query) 
                => $query
                   ->with('user')

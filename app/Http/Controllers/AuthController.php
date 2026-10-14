@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
@@ -60,7 +59,9 @@ class AuthController extends Controller
             'email' => $request->input('email'),
             'password' => Hash::make(
 
-            request->input('password')), 'role' => 'user', 'status' => true,]);Auth::login(user);
+            $request->input('password')), 'role' => 'user', 'status' => true,]);
+
+              Auth::login($user);
 
             $request->session()->regenerate();
 
