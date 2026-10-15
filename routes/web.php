@@ -38,6 +38,7 @@ Route::middleware('guest')->group(function () {
         '/logout',
         [AuthController::class, 'logout']
     )->middleware('auth')->name('logout');
+       });
 
     Route::middleware('auth')->group(function () {
         Route::resource(
@@ -86,4 +87,3 @@ Route::middleware('guest')->group(function () {
           )->except(['show']);
        });
     });
-});
