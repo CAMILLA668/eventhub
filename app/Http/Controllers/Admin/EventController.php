@@ -68,7 +68,7 @@ class EventController extends Controller
      */
     public function edit(Event $event): View
     {
-        if($event->hashStarted()) {
+        if($event->hasStarted()) {
             return redirect()
               ->route('admin.events.index')
               ->with(
@@ -99,7 +99,7 @@ class EventController extends Controller
      */
     public function update(EventRequest $request, Event $event): RedirectResponse
     {
-        if($event->hashStarted()) {
+        if($event->hasStarted()) {
             return redirect()
                ->route('admin.events.index')
                ->with(

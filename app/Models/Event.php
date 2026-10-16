@@ -46,7 +46,7 @@ class Event extends Model
         return $this->status === 'canceled';
     }
 
-    public function hasSatarted(): bool
+    public function hasStarted(): bool
     {
         return $this->start_at->isPast();
     }
