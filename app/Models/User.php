@@ -43,7 +43,7 @@ class User extends Authenticatable
         return $this->hasMany(Registration::class);
     }
 
-    public function isAdmin(): booll
+    public function isAdmin(): bool
     {
         return $this->role === 'admin';
     }

@@ -16,7 +16,7 @@ class EventController extends Controller
                 ->withCount(['registrations as confirmed_registrations_count' =>fn($query) => $query
                    ->where('status', 'confirmed'),])
                       ->where('status', 'scheduled')
-                          ->where('start', '>', now());
+                          ->where('start_at', '>', now());
 
                 if($request->filled('search')) {
                     $search = $request->string('search');
@@ -29,8 +29,10 @@ class EventController extends Controller
             };
 
              if($request->filled('category_id')) {
-                 $query->where('category_id',
-                    $request->integer('category_id'));
+                 $query->where(
+                    'category_id',
+                    $request->integer('category_id')
+            );
          }
 
          $events = $query
@@ -38,7 +40,7 @@ class EventController extends Controller
             ->paginate(9)
             ->withQueryString();
 
-            $categories = Category::orderaBy('name')->get();
+            $categories = Category::orderBy('name')->get();
 
             return view('events.index', compact('events', 'categories'));
     }

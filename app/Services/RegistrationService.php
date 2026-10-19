@@ -32,7 +32,7 @@ class RegistrationService
                 ->where('status', 'confirmed')
                 ->count();
 
-            if(confirmedCount >= $event->capacity) {
+            if($confirmedCount >= $event->capacity) {
                 throw new \DomainException('Não existem vagas disponíveis.');
             }
             

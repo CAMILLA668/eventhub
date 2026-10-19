@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('title');
             $table->text('description');
             $table->string('location');
-            $table->dateTime('start_at');
+            $table->datetime('start_at');
             $table->datetime('end_at');
             $table->unsignedInteger('capacity');
             $table->string('status')->default('sheduled');
