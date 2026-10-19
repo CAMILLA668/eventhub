@@ -33,10 +33,7 @@ class AuthController extends Controller
 
             return redirect()
               ->intended(route('events.index'))
-              ->with(
-                 'success',
-                 'Login realizado com sucesso.'
-              );
+              ->with('success','Login realizado com sucesso.');
         }
 
         return back()
@@ -67,10 +64,7 @@ class AuthController extends Controller
 
             return redirect()
               ->route('events.index')
-              ->with(
-                  'success',
-                  'Conta criada com sucesso.'
-              );
+              ->with('success','Conta criada com sucesso.');
     }
 
     public function logout(
@@ -84,9 +78,6 @@ class AuthController extends Controller
 
         return redirect()
           ->route('login')
-          ->with(
-            'success',
-            'Você saiu do sistema.'
-          );
+          ->with('success', 'Você saiu do sistema.');
     }
 }

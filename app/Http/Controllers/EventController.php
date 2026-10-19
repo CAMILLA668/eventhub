@@ -13,26 +13,23 @@ class EventController extends Controller
     {
         $query = Event::query()
             ->with('category')
-                ->withCount(['registrations as confirmed_registrations_count' =>fn($query) => $query
-                   ->where('status', 'confirmed'),])
-                      ->where('status', 'scheduled')
-                          ->where('start_at', '>', now());
+            ->withCount(['registrations as confirmed_registrations_count' =>fn($query) => $query
+            ->where('status', 'confirmed'),])
+            ->where('status', 'scheduled')
+            ->where('start_at', '>', now());
 
-                if($request->filled('search')) {
-                    $search = $request->string('search');
-                        $query->where(function ($query) use ($search) {
-                           $query->where('title','like', "%{$search}%")
-                                 ->orWhere('description','like', "%{$search}%");
+        if($request->filled('search')) {
+            $search = $request->string('search');
+            $query->where(function ($query) use ($search) {
+            $query->where('title','like', "%{$search}%")
+            ->orWhere('description','like', "%{$search}%");
                    
                 });
 
             };
 
-             if($request->filled('category_id')) {
-                 $query->where(
-                    'category_id',
-                    $request->integer('category_id')
-            );
+        if($request->filled('category_id')) {
+                 $query->where('category_id', $request->integer('category_id'));
          }
 
          $events = $query

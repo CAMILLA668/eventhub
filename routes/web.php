@@ -14,77 +14,51 @@ Route::get('/', function () {
 });
 
 Route::middleware('guest')->group(function () {
-    Route::get(
-        '/login',
-        [AuthController::class, 'showLogin']
-    )->name('login');
+    
+    Route::get('/login', [AuthController::class, 'showLogin'])
+        ->name('login');
 
-    Route::post(
-        '/login',
-        [AuthController::class, 'login']
-    )->name('login.store');
+    Route::post('/login', [AuthController::class, 'login'])
+        ->name('login.store');
 
-    Route::get(
-        '/register',
-        [AuthController::class, 'showRegister']
-    )->name('register');
+    Route::get('/register',[AuthController::class, 'showRegister'])
+        ->name('register');
 
-    Route::post(
-        '/register',
-        [AuthController::class, 'register']
-    )->name('register.store');
+    Route::post('/register', [AuthController::class, 'register'])
+        ->name('register.store');
 
-    Route::post(
-        '/logout',
-        [AuthController::class, 'logout']
-    )->middleware('auth')->name('logout');
+    Route::post( '/logout', [AuthController::class, 'logout'])
+            ->middleware('auth')
+            ->name('logout');
        });
 
     Route::middleware('auth')->group(function () {
         
-        Route::resource(
-            'eventos',
-            EventController::class
-        )
-        ->only(['index', 'show'])
-        ->parameters([
-            'eventos' => 'event',
-        ])
-        ->names('events');
+        Route::resource('eventos', EventController::class)
+            ->only(['index', 'show'])
+            ->parameters(['eventos' => 'event',])
+            ->names('events');
 
-    Route::post(
-        '/eventos/{event}/inscricoes',
-        [RegistrationController::class, 'store']
-    )->name('registrations.store');
+    Route::post('/eventos/{event}/inscricoes',[RegistrationController::class, 'store'])
+         ->name('registrations.store');
 
-    Route::get(
-        '/minhas-inscricoes',
-        [RegistrationController::class, 'index']
-    )->name('registrations.index');
+    Route::get('/minhas-inscricoes',[RegistrationController::class, 'index'])
+        ->name('registrations.index');
 
-    Route::delete(
-        '/inscricoes/{registration}',
-        [RegistrationController::class, 'destroy']
-    )->name('registrations.destroy');
+    Route::delete('/inscricoes/{registration}',[RegistrationController::class, 'destroy'])
+        ->name('registrations.destroy');
 
     Route::middleware('admin')
        ->prefix('admin')
        ->name('admin.')
        ->group(function () {
 
-          Route::resource(
-            'categories',
-            AdminCategoryController::class
-          );
+    Route::resource('categories',AdminCategoryController::class);
 
-          Route::get(
-            '/events/{event}/participants',
-            [AdminEventController::class, 'participants']
-          )->name('events.participants');
+    Route::get('/events/{event}/participants', [AdminEventController::class, 'participants'])
+        ->name('events.participants');
 
-          Route::resource(
-            'events',
-            AdminEventController::class
-          )->except(['show']);
+    Route::resource('events', AdminEventController::class)
+         ->except(['show']);
        });
     });
