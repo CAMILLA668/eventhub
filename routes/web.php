@@ -32,7 +32,7 @@ Route::middleware('guest')->group(function () {
     Route::post(
         '/register',
         [AuthController::class, 'register']
-    )->name('register');
+    )->name('register.store');
 
     Route::post(
         '/logout',
@@ -65,7 +65,7 @@ Route::middleware('guest')->group(function () {
     Route::delete(
         '/inscricoes/{registration}',
         [RegistrationController::class, 'destroy']
-    )->name('registrtions.destroy');
+    )->name('registrations.destroy');
 
     Route::middleware('admin')
        ->prefix('admin')

@@ -1,4 +1,3 @@
-```php
 <?php
 
 namespace Tests\Feature;
@@ -115,4 +114,4 @@ class RegistrationServiceTest extends TestCase
         $service->register($user, $event);
     }
 }
-```
+

@@ -26,6 +26,7 @@ class EventFactory extends Factory
             'category_id'  => Category::Factory(),
             'title'        => fake()->paragraph(),
             'location'     => fake()->address(),
+            'description'  => fake()->paragraph(),
             'start_at'     => $start,
             'end_at'       => $start->copy()->addHours(3),
             'capacity'     => fake()->numberBetween(10, 100),
